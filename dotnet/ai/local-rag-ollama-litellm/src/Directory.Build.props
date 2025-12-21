@@ -1,0 +1,23 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Centralized Package Management -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Common Metadata">
+    <Authors>Gabriel Mongeon</Authors>
+    <Product>LocalRag</Product>
+    <Copyright>Copyright © 2025 Gabriel Mongeon</Copyright>
+    <Description>A .NET 10 implementation of RAG using Ollama, LiteLLM, and Qdrant</Description>
+  </PropertyGroup>
+
+</Project>

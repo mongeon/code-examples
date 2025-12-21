@@ -1,0 +1,14 @@
+model_list:
+  - model_name: nomic-embed-text
+    litellm_params:
+      model: ollama/nomic-embed-text
+  - model_name: qwen2.5
+    litellm_params:
+      model: ollama/qwen2.5
+
+litellm_settings:
+  host: 0.0.0.0
+  port: 8080
+
+ollama_settings:
+  api_base: http://localhost:11434

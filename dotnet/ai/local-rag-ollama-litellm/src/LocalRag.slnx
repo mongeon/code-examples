@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="LocalRag.Console/LocalRag.Console.csproj" Id="56286caa-c108-4293-8703-6f93cfc76991" />
+  <Project Path="LocalRag.Core/LocalRag.Core.csproj" Id="2f0ecc2b-0389-4a3f-b92a-0b0cfc662d27" />
+</Solution>
