@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using AIAgentsOllama.Models;
 
 namespace AIAgentsOllama.Utilities;
 
@@ -50,16 +51,4 @@ public class OllamaClient
             throw new InvalidOperationException($"Failed to connect to Ollama at {_baseUrl}. Make sure Ollama is running.", ex);
         }
     }
-}
-
-public class ChatMessage
-{
-    public ChatMessage(string role, string content)
-    {
-        Role = role;
-        Content = content;
-    }
-
-    public string Role { get; set; }
-    public string Content { get; set; }
 }

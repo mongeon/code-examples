@@ -12,12 +12,12 @@ public class BasicAgentExample
     {
         Console.WriteLine("=== AI Agent Example ===");
         Console.WriteLine("Ensure Ollama is running: ollama serve");
-        Console.WriteLine("Pull a model: ollama pull llama3.3\n");
+        Console.WriteLine("Pull a model: ollama pull llama3.2\n");
 
         try
         {
             // Create agent
-            var agent = new OllamaAgent("llama3.3");
+            var agent = new OllamaAgent("llama3.2");
 
             // Register tools
             var toolRegistry = new ToolRegistry();
