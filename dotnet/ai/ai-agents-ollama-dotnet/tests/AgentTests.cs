@@ -50,13 +50,13 @@ public class AgentTests
     }
 
     [Fact]
-    public void ToolRegistry_ThrowsForMissingTool()
+    public async Task ToolRegistry_ThrowsForMissingTool()
     {
         // Arrange
         var registry = new ToolRegistry();
 
         // Act & Assert
-        Assert.ThrowsAsync<InvalidOperationException>(
+        await Assert.ThrowsAsync<InvalidOperationException>(
             async () => await registry.ExecuteToolAsync("nonexistent", new())
         );
     }
