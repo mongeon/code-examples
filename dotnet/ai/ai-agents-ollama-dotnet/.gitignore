@@ -1,0 +1,28 @@
+# Build results
+bin/
+obj/
+.vs/
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.sln.docstates
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependencies
+packages/
+.nuget/
+
+# Test coverage
+coverage/
+*.opencover.xml
+
+# Environment
+.env
+.env.local
