@@ -8,7 +8,7 @@ namespace AgentFrameworkOllamaMcp.Examples;
 
 /// <summary>
 /// Example 2: An agent connected to the MCP weather server from the previous blog post.
-/// Agent Framework handles the tool-calling loop automatically — no manual ReAct parsing.
+/// Agent Framework handles the tool-calling loop automatically, no manual ReAct parsing.
 /// </summary>
 public static class Example2_McpWeather
 {
@@ -16,7 +16,7 @@ public static class Example2_McpWeather
     {
         // 1. Start the MCP weather server as a child process via stdio transport.
         //    Adjust the path to match where you cloned the mcp-weather-server project.
-        var mcpClient = await McpClientFactory.CreateAsync(
+        await using var mcpClient = await McpClientFactory.CreateAsync(
             new McpClientOptions { ClientInfo = new() { Name = "WeatherAgent", Version = "1.0.0" } },
             new StdioClientTransport(new StdioClientTransportOptions
             {
@@ -45,8 +45,5 @@ public static class Example2_McpWeather
         var response = await agent.RunAsync("What is the weather in Montreal?");
 
         Console.WriteLine(response);
-
-        // 6. Clean up the MCP client.
-        await mcpClient.DisposeAsync();
     }
 }
