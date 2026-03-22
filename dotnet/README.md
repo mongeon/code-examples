@@ -11,3 +11,4 @@ Getting started:
 
 Quick links:
 - Local RAG example: [ai/local-rag-ollama-litellm](ai/local-rag-ollama-litellm)
+- Agent Framework + Ollama + MCP: [ai/agent-framework-ollama-mcp](ai/agent-framework-ollama-mcp)
