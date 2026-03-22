@@ -18,7 +18,7 @@ public static class Example3_SequentialWorkflow
     public static async Task RunAsync()
     {
         // 1. Start the MCP weather server.
-        var mcpClient = await McpClientFactory.CreateAsync(
+        await using var mcpClient = await McpClientFactory.CreateAsync(
             new McpClientOptions { ClientInfo = new() { Name = "WorkflowDemo", Version = "1.0.0" } },
             new StdioClientTransport(new StdioClientTransportOptions
             {
@@ -79,7 +79,5 @@ public static class Example3_SequentialWorkflow
                 Console.WriteLine($"[{msg.AuthorName}] {msg.Text}");
             }
         }
-
-        await mcpClient.DisposeAsync();
     }
 }
