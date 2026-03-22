@@ -16,7 +16,7 @@ agent-framework-ollama-mcp/
 
 ## Prerequisites
 
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - [Ollama](https://ollama.ai/) running locally with the `llama3.2` model pulled
 - The [mcp-weather-server](../../mcp/mcp-weather-server/) project (for examples 2 and 3)
 
