@@ -13,7 +13,7 @@ public static class Example1_HelloAgent
     {
         // OllamaApiClient implements IChatClient — Agent Framework accepts any IChatClient.
         var chatClient = new OllamaApiClient(
-            new Uri("http://localhost:11434"), "llama3.2");
+            new Uri("http://localhost:11434"), "qwen3");
 
         // Create the agent: a name, instructions, and a chat client. That's it.
         AIAgent agent = new ChatClientAgent(

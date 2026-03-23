@@ -30,7 +30,7 @@ public static class Example2_McpWeather
         // 3. Build the Ollama chat client with function invocation support.
         //    UseFunctionInvocation() lets Agent Framework call tools automatically.
         IChatClient chatClient = new ChatClientBuilder(
-                new OllamaApiClient(new Uri("http://localhost:11434"), "llama3.2"))
+                new OllamaApiClient(new Uri("http://localhost:11434"), "qwen3"))
             .UseFunctionInvocation()
             .Build();
 

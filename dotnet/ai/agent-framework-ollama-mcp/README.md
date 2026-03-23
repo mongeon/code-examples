@@ -17,13 +17,13 @@ agent-framework-ollama-mcp/
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
-- [Ollama](https://ollama.ai/) running locally with the `llama3.2` model pulled
+- [Ollama](https://ollama.ai/) running locally with the `qwen3` model pulled
 - The [mcp-weather-server](../../mcp/mcp-weather-server/) project (for examples 2 and 3)
 
 ### Pull the model
 
 ```bash
-ollama pull llama3.2
+ollama pull qwen3
 ```
 
 ## Running the Examples
@@ -82,9 +82,9 @@ User Question
 ## Troubleshooting
 
 - **Ollama not running**: Make sure Ollama is started (`ollama serve` or check the system tray on Windows).
-- **Model not found**: Run `ollama pull llama3.2` first.
+- **Model not found**: Run `ollama pull qwen3` first.
 - **MCP server path**: Examples 2 and 3 expect the weather server at `../../../mcp/mcp-weather-server` relative to this project. Adjust the path in the code if your layout differs.
-- **Tool calling not working**: Some smaller models have limited function-calling support. Try `qwen2.5` or `llama3.3` if `llama3.2` struggles with tool calls.
+- **Tool calling not working**: Some smaller models have limited function-calling support. Try `llama4:scout` if `qwen3` struggles with tool calls.
 
 ## Related Blog Post
 

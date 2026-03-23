@@ -30,7 +30,7 @@ public static class Example3_SequentialWorkflow
 
         // 2. Shared Ollama client — both agents use the same local model.
         var ollamaEndpoint = new Uri("http://localhost:11434");
-        const string model = "llama3.2";
+        const string model = "qwen3";
 
         // 3. Agent 1: Weather Fetcher — has access to MCP tools.
         IChatClient fetcherClient = new ChatClientBuilder(
