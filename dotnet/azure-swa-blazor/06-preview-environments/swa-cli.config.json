@@ -1,0 +1,13 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "azure-swa-blazor": {
+      "appLocation": ".",
+      "apiLocation": "Api",
+      "outputLocation": "wwwroot",
+      "appDevserverUrl": "http://localhost:5000",
+      "run": "dotnet run --project Client.csproj",
+      "apiDevserverUrl": ""
+    }
+  }
+}
