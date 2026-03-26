@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Client;
 using Client.Auth;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
