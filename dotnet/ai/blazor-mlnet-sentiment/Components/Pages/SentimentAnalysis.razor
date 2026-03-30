@@ -1,0 +1,111 @@
+@page "/sentiment"
+@using BlazorMLNET.Models
+@inject MLService MLService
+
+<div class="container mt-5">
+    <h1>Analyse de sentiment avec ML.NET</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Analyseur de sentiment</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="sentimentText">Entrez le texte à analyser :</label>
+                        <textarea
+                            id="sentimentText"
+                            class="form-control"
+                            rows="5"
+                            @bind="InputText"
+                            @bind:event="oninput"
+                            placeholder="Tapez du texte ici..."></textarea>
+                    </div>
+
+                    <button class="btn btn-primary mt-3" @onclick="AnalyzeSentiment">
+                        Analyser le sentiment
+                    </button>
+
+                    @if (isAnalyzing)
+                    {
+                        <div class="mt-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                            <span class="ms-2">Analyse en cours...</span>
+                        </div>
+                    }
+
+                    @if (showResult)
+                    {
+                        <div class="mt-4">
+                            <div class="card @(isPredictionPositive ? "border-success" : "border-danger")">
+                                <div class="card-header @(isPredictionPositive ? "bg-success" : "bg-danger") text-white">
+                                    <h4 class="mb-0">Résultat</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Sentiment : @(isPredictionPositive ? "Positif" : "Négatif")
+                                    </h5>
+                                    <p class="card-text">
+                                        <strong>Confiance :</strong> @(confidenceScore.ToString("P2"))
+                                    </p>
+                                    <div class="progress mt-3" style="height: 25px;">
+                                        <div class="progress-bar @(isPredictionPositive ? "bg-success" : "bg-danger")"
+                                             role="progressbar"
+                                             style="width: @((confidenceScore * 100).ToString("F0", System.Globalization.CultureInfo.InvariantCulture))%; min-width: 3em;"
+                                             aria-valuenow="@((confidenceScore * 100).ToString("F0", System.Globalization.CultureInfo.InvariantCulture))"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100">
+                                            @(confidenceScore.ToString("P0"))
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string InputText { get; set; } = "";
+    private bool isAnalyzing = false;
+    private bool showResult = false;
+    private bool isPredictionPositive = false;
+    private float confidenceScore = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!MLService.LoadModel())
+            await MLService.TrainAndSaveModelAsync();
+    }
+
+    private async Task AnalyzeSentiment()
+    {
+        if (string.IsNullOrWhiteSpace(InputText))
+            return;
+
+        isAnalyzing = true;
+        showResult = false;
+
+        try
+        {
+            var prediction = await Task.Run(() => MLService.PredictSentiment(InputText));
+            showResult = true;
+            isPredictionPositive = prediction.Prediction;
+            confidenceScore = prediction.Probability;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur : {ex.Message}");
+        }
+        finally
+        {
+            isAnalyzing = false;
+        }
+    }
+}
