@@ -5,6 +5,7 @@ AI-related .NET projects integrating local LLMs, embeddings, and vector database
 Current projects:
 - [local-rag-ollama-litellm](local-rag-ollama-litellm): Local Retrieval-Augmented Generation using Ollama, LiteLLM, and Qdrant.
 - [agent-framework-ollama-mcp](agent-framework-ollama-mcp): Microsoft Agent Framework with Ollama and MCP — from hello world to multi-agent workflows.
+- [audio-assistant](audio-assistant): Voice assistant on Raspberry Pi — Whisper, Piper TTS, Ollama, Claude API and function calling.
 
 Usage:
 - See the project README for setup and commands.
