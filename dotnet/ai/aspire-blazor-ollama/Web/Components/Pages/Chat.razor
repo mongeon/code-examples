@@ -1,0 +1,96 @@
+@page "/"
+@rendermode InteractiveServer
+@inject IChatClient ChatClient
+
+<PageTitle>Chat</PageTitle>
+
+<h1>Chat</h1>
+
+<p class="text-muted">
+    Powered by <code>llama3.2</code> running in Ollama, orchestrated by .NET Aspire.
+    The component only knows <code>IChatClient</code> — not Ollama.
+</p>
+
+<div class="chat-history border rounded p-3 mb-3">
+    @if (_messages.Count == 0)
+    {
+        <p class="text-muted m-0">Ask something to get started…</p>
+    }
+    else
+    {
+        @foreach (var message in _messages)
+        {
+            <div class="chat-message @(message.Role == ChatRole.User ? "from-user" : "from-assistant")">
+                <span class="chat-role">@(message.Role == ChatRole.User ? "You" : "Assistant")</span>
+                <div class="chat-bubble">@message.Text</div>
+            </div>
+        }
+    }
+</div>
+
+<EditForm Model="this" OnValidSubmit="SendAsync">
+    <div class="input-group">
+        <InputText @bind-Value="_input" class="form-control" placeholder="Type a message…"
+                   disabled="@_busy" autocomplete="off" />
+        <button class="btn btn-primary" type="submit" disabled="@(_busy || string.IsNullOrWhiteSpace(_input))">
+            @(_busy ? "…" : "Send")
+        </button>
+    </div>
+</EditForm>
+
+@code {
+    private readonly List<ChatMessage> _messages = new();
+    private string? _input;
+    private bool _busy;
+
+    private async Task SendAsync()
+    {
+        var question = _input?.Trim();
+        if (string.IsNullOrEmpty(question) || _busy)
+        {
+            return;
+        }
+
+        _busy = true;
+        _input = string.Empty;
+
+        _messages.Add(new ChatMessage(ChatRole.User, question));
+
+        // Snapshot the conversation to send to the model — before adding the
+        // empty assistant placeholder, so the model never sees a blank turn.
+        var request = _messages.ToList();
+
+        // Placeholder assistant message that we stream tokens into (display + future context).
+        var assistant = new ChatMessage(ChatRole.Assistant, string.Empty);
+        _messages.Add(assistant);
+
+        try
+        {
+            // Stream the response so tokens appear as they arrive. ChatMessage.Text is
+            // read-only, so we accumulate and replace the message's text content.
+            var buffer = string.Empty;
+            await foreach (var update in ChatClient.GetStreamingResponseAsync(request))
+            {
+                buffer += update.Text;
+                assistant.Contents = [new TextContent(buffer)];
+                StateHasChanged();
+            }
+        }
+        catch (Exception ex)
+        {
+            assistant.Contents = [new TextContent($"⚠️ {ex.Message}")];
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    // The article's minimal pattern: a single, non-streaming call.
+    // Kept here as a reference for the simplest possible usage.
+    private async Task<string> Demander(string question)
+    {
+        var reponse = await ChatClient.GetResponseAsync(question);
+        return reponse.Text;
+    }
+}
