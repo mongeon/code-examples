@@ -23,10 +23,10 @@ ollama pull llama3.2
 
 ## Running
 
-Make sure Ollama is running locally (`http://localhost:11434`), then:
+Make sure Ollama is running locally (`http://localhost:11434`), then, from this folder:
 
 ```bash
-dotnet run --project structured-outputs-ollama-dotnet
+dotnet run
 ```
 
 Expected output (values may vary slightly by model, and decimal formatting follows your system culture):
