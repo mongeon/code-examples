@@ -42,7 +42,9 @@ From this folder, a single command is enough:
 claude mcp add books -- dotnet run --project ./BooksMcp
 ```
 
-Everything after the `--` is the command Claude Code launches as a child process, with stdin/stdout as the JSON-RPC channel. By default the config uses the `local` scope; use `--scope project` to write a `.mcp.json` at the repo root (a sample is included here), or `--scope user` to make the server available in all your projects.
+Everything after the `--` is the command Claude Code launches as a child process, with stdin/stdout as the JSON-RPC channel. By default the config uses the `local` scope; use `--scope project` to write a `.mcp.json` in the folder where you run Claude Code, or `--scope user` to make the server available in all your projects.
+
+The `.mcp.json` in this folder is a sample of that project-scope config. Its `./BooksMcp` path is relative to this folder, so it works as-is when Claude Code runs from here; if you copy it elsewhere (e.g. your repo root), adjust the `--project` path accordingly.
 
 Check the wiring with `/mcp` in Claude Code, then test with a real request: *"What's on my reading list right now?"* or *"Add Refactoring by Martin Fowler to my to-read list"*.
 

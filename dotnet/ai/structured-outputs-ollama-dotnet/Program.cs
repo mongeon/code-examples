@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Globalization;
 using Microsoft.Extensions.AI;
 using OllamaSharp;
 
@@ -39,7 +40,8 @@ else
 static bool IsValid(Invoice invoice) =>
     !string.IsNullOrWhiteSpace(invoice.Vendor)
     && invoice.Amount > 0
-    && DateOnly.TryParseExact(invoice.Date, "yyyy-MM-dd", out _);
+    && DateOnly.TryParseExact(invoice.Date, "yyyy-MM-dd",
+        CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
 
 // The Description attributes are included in the schema sent to the model
 public record Invoice(
