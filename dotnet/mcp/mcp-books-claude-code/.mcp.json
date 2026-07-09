@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "books": {
+      "command": "dotnet",
+      "args": ["run", "--project", "./BooksMcp"]
+    }
+  }
+}
