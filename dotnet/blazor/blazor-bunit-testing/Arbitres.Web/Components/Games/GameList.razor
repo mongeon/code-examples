@@ -1,0 +1,36 @@
+@* GameList.razor *@
+@inject IGameService GameService
+
+<AuthorizeView>
+    <Authorized>
+        <p class="welcome">Bonjour @context.User.Identity?.Name</p>
+    </Authorized>
+    <NotAuthorized>
+        <a class="login" href="authentication/login">Se connecter</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@if (games is null)
+{
+    <p class="loading">Chargement...</p>
+}
+else if (games.Count == 0)
+{
+    <p class="empty">Aucun match à venir.</p>
+}
+else
+{
+    @foreach (var game in games)
+    {
+        <GameCard Game="game" />
+    }
+}
+
+@code {
+    private IReadOnlyList<Game>? games;
+
+    protected override async Task OnInitializedAsync()
+    {
+        games = await GameService.GetUpcomingGamesAsync();
+    }
+}

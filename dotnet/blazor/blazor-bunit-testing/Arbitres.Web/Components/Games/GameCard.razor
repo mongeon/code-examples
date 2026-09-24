@@ -1,0 +1,28 @@
+@* GameCard.razor *@
+@inject IJSRuntime JS
+
+<div class="game-card">
+    <h3>@Game.AwayTeam @@ @Game.HomeTeam</h3>
+    <p>@Game.StartTime.ToString("yyyy-MM-dd HH:mm")</p>
+
+    @if (Game.MissingUmpires > 0)
+    {
+        <span class="missing">Manque @Game.MissingUmpires arbitre(s)</span>
+        <button class="volunteer" @onclick="() => OnVolunteer.InvokeAsync(Game.Id)">Me proposer</button>
+    }
+
+    <button class="copy-link" @onclick="CopyLinkAsync">Copier le lien</button>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public Game Game { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<int> OnVolunteer { get; set; }
+
+    private async Task CopyLinkAsync()
+    {
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", $"https://arbitres.ca/matchs/{Game.Id}");
+    }
+}

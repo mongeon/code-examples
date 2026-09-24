@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Arbitres.Web.Tests/Arbitres.Web.Tests.csproj" />
+  <Project Path="Arbitres.Web/Arbitres.Web.csproj" />
+</Solution>
